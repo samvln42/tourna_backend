@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login and Signup Form</title>
+</head>
+<body>
+    <h2>Login</h2>
+    <form id="loginForm">
+        <label for="loginEmail">Email:</label><br>
+        <input type="email" id="loginEmail" name="email" required><br>
+        <label for="loginPassword">Password:</label><br>
+        <input type="password" id="loginPassword" name="password" required><br>
+        <button type="submit">Login</button>
+    </form>
+
+    <h2>Signup</h2>
+    <form id="signupForm">
+        <label for="signupEmail">Email:</label><br>
+        <input type="email" id="signupEmail" name="email" required><br>
+        <label for="signupPassword">Password:</label><br>
+        <input type="password" id="signupPassword" name="password" required><br>
+        <label for="signupNickname">Nickname:</label><br>
+        <input type="text" id="signupNickname" name="nickname"><br>
+        <button type="submit">Signup</button>
+    </form>
+
+    <script>
+        // Function to handle login form submission
+        document.getElementById("loginForm").addEventListener("submit", function(event) {
+            event.preventDefault();
+            const formData = new FormData(this);
+            fetch("http://127.0.0.1:8000/users/users/", {
+                method: "POST",
+                body: formData
+            })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error("Network response was not ok");
+                }
+                return response.json();
+            })
+            .then(data => {
+                // Handle successful login
+                console.log("Login successful:", data);
+            })
+            .catch(error => {
+                // Handle login errors
+                console.error("Login error:", error);
+            });
+        });
+
+        // Function to handle signup form submission
+        document.getElementById("signupForm").addEventListener("submit", function(event) {
+            event.preventDefault();
+            const formData = new FormData(this);
+            fetch("http://127.0.0.1:8000/users/users/", {
+                method: "POST",
+                body: formData
+            })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error("Network response was not ok");
+                }
+                return response.json();
+            })
+            .then(data => {
+                // Handle successful signup
+                console.log("Signup successful:", data);
+            })
+            .catch(error => {
+                // Handle signup errors
+                console.error("Signup error:", error);
+            });
+        });
+    </script>
+</body>
+</html>
